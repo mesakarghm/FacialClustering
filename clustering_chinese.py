@@ -153,9 +153,12 @@ class ClusteringChineseWhisperers:
     def run(self, input_dir, output_dir, batch_size):
         image_list = os.listdir(input_dir)
         images_list = [os.path.join(input_dir, img) for img in image_list]
+        print("Generating embeddings...")
         embeddings = self.compute_facial_encodings(images_list, batch_size)
+        print("Creating clusters....")
         sorted_clusters = self.cluster_facial_encodings(embeddings)
         num_clusters = len(sorted_clusters)
+        print("SOrting clusters into folders...")
         for idx, cluster in enumerate(sorted_clusters):
             # save all the cluster
             cluster_dir = join(output_dir, str(idx))
